@@ -43,8 +43,12 @@ const SignInPage = () => {
     }
   };
 
+  const handleLoginClick = () => {
+    router.push("/login");
+  };
+
   return (
-    <div className="relative w-[360px] mx-auto">
+    <div className="relative w-[360px] mx-auto min-h-sceen">
       <Image
         src="/assets/images/webp/vector-top-img.webp"
         alt="top-vector"
@@ -59,7 +63,7 @@ const SignInPage = () => {
         height={296}
         className="absolute z-[-10] -bottom-0 -right-0 pointer-events-none"
       />
-      <div className="w-[360px] px-5 mx-auto pt-[106px] pb-[154px] ">
+      <div className="w-[360px] px-5 mx-auto pt-[106px] pb-[154px]">
         <h3 className="text-[28px] leading-[120%] text-center pt-1">
           Create an Account!
         </h3>
@@ -154,6 +158,14 @@ const SignInPage = () => {
             Sign In
           </button>
         </form>
+
+        <button
+          type="button"
+          onClick={handleLoginClick}
+          className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
+        >
+          Login
+        </button>
       </div>
     </div>
   );

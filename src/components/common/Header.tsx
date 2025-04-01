@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { HEADER_ICONS_LIST } from "@/utils/helper";
 
-const Header = () => {
+const Header = ({ myClass = "" }) => {
   const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
@@ -20,10 +20,12 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="pt-4 pb-[17px]">
+    <div className={`pt-4 pb-[17px] ${myClass}`}>
       <div className="w-[360px] px-5 mx-auto">
         <div className="flex items-center justify-between">
-          <p className="font-semibold font-inter text-xs leading-[100%]">{currentTime}</p>
+          <p className="font-semibold font-inter text-xs leading-[100%]">
+            {currentTime}
+          </p>
           <div className="flex items-center gap-[2px]">
             {HEADER_ICONS_LIST.map((item, index) => (
               <div key={index}>{item.icon}</div>

@@ -34,11 +34,15 @@ const LoginPage = () => {
     } else if (formData.password.length < 6) {
       setError(true);
     } else {
+      // Save login info in local storage
       localStorage.setItem("formData", JSON.stringify(formData));
       localStorage.setItem("isLogin", "true");
       setFormData(formValues);
       setError(false);
       alert("Login Successful");
+
+      // Navigate to Home Page
+      router.push("/home");
     }
   };
 
