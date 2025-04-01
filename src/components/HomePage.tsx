@@ -8,17 +8,25 @@ import Image from "next/image";
 import {
   HomeIcon,
   NotificationIcon,
+  PlusIcon,
   ProfileIcon,
   TimerIcon,
+  WarningIcon,
 } from "@/utils/icons";
 
 const HomePage = () => {
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab") || "today"; // Default to "today" tab
+  const tab = searchParams.get("tab") || "today";
 
   return (
-    <div className="min-h-screen relative">
-      {/* Main Content */}
+    <div className="min-h-screen relative overflow-hidden w-[360px] mx-auto">
+      <Image
+        src="/assets/images/webp/home-page-vector-img.webp"
+        alt="home-vector"
+        width={352}
+        height={252}
+        className="pointer-events-none absolute mx-auto z-[-10] -top-50 -left-24"
+      />
       <div className="w-[360px] mx-auto px-5">
         <div className="pt-3 pb-6 flex items-center justify-between">
           <div className="flex flex-col">
@@ -34,6 +42,14 @@ const HomePage = () => {
             className="pointer-events-none rounded-full"
             alt="profile-image"
           />
+        </div>
+        <div className="green-card bg-cover py-5 mb-[33px] h-[94px] rounded-[10px]">
+          <span className="flex justify-center">
+            <WarningIcon />
+          </span>
+          <p className="leading-[160%] text-white text-center pt-2">
+            You didn't enter any time yesterday !
+          </p>
         </div>
         <div className="flex justify-center items-center border-[0.5px] border-solid border-black/12 rounded-[60px]">
           {HOME_TABS_LIST.map((item, i) => {
@@ -71,22 +87,31 @@ const HomePage = () => {
           </div>
         )}
       </div>
-
-      {/* Bottom Navigation */}
-      <div className="w-[360px] mx-auto bg-black py-3">
-        <div className="flex justify-around items-center text-white">
-          <Link href="/" className="">
-            <HomeIcon />
-          </Link>
-          <Link href="/" className="">
-            <TimerIcon />
-          </Link>
-          <Link href="/" className="">
-            <NotificationIcon />
-          </Link>
-          <Link href="/" className="">
-            <ProfileIcon />
-          </Link>
+      <div className="absolute bottom-0 left-0 right-0">
+        <div className="bottom-bar py-3 bg-cover mt-24 relative">
+          <div className="flex justify-between items-center px-5">
+            <div className="flex items-center gap-[45px]">
+              <Link href="/">
+                <HomeIcon />
+              </Link>
+              <Link href="/">
+                <TimerIcon />
+              </Link>
+            </div>
+            <div className="flex items-center gap-[45px]">
+              <Link href="/">
+                <NotificationIcon />
+              </Link>
+              <Link href="/">
+                <ProfileIcon />
+              </Link>
+            </div>
+          </div>
+          <div className="bg-black size-12 rounded-full flex items-center justify-center absolute -top-8 left-1/2 -translate-x-1/2">
+            <Link href="/">
+              <PlusIcon />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

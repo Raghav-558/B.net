@@ -1,7 +1,12 @@
 "use client";
-import { CloseEyeIcon,EmailIcon, OpenEyeIcon, PasswordIcon} from "@/utils/icons";
+import {
+  CloseEyeIcon,
+  EmailIcon,
+  OpenEyeIcon,
+  PasswordIcon,
+} from "@/utils/icons";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; 
 import React, { useState, useEffect } from "react";
 
 const LoginPage = () => {
@@ -15,7 +20,9 @@ const LoginPage = () => {
   const [formData, setFormData] = useState(formValues);
   const [error, setError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(true);
@@ -153,7 +160,7 @@ const LoginPage = () => {
         </form>
         <button
           type="button"
-          onClick={handleSignUp}
+          onClick={handleSignUp} 
           className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
         >
           Sign Up

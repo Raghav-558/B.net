@@ -1,16 +1,19 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import SignupPage from "@/components/SignupPage";
+import SignupPage from "@/components/SignupPage"; 
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("isLogin") !== "true") {
-      router.push("/");
+    if (
+      typeof window !== "undefined" &&
+      localStorage.getItem("isLogin") === "true"
+    ) {
+      router.push("/home");
     }
-  }, []);
+  }, [router]); 
 
   return (
     <>
@@ -19,4 +22,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
