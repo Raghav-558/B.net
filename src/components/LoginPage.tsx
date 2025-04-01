@@ -1,16 +1,12 @@
 "use client";
-import {
-  CloseEyeIcon,
-  EmailIcon,
-  OpenEyeIcon,
-  PasswordIcon,
-} from "@/utils/icons";
+import { CloseEyeIcon,EmailIcon, OpenEyeIcon, PasswordIcon} from "@/utils/icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
+
   const formValues = {
     email: "",
     password: "",
@@ -19,10 +15,7 @@ const LoginPage = () => {
   const [formData, setFormData] = useState(formValues);
   const [error, setError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(true);
@@ -34,17 +27,20 @@ const LoginPage = () => {
     } else if (formData.password.length < 6) {
       setError(true);
     } else {
-      // Save login info in local storage
       localStorage.setItem("formData", JSON.stringify(formData));
       localStorage.setItem("isLogin", "true");
       setFormData(formValues);
       setError(false);
-      alert("Login Successful");
-
-      // Navigate to Home Page
+      alert("Login Successful!");
       router.push("/home");
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("isLogin") === "true") {
+      router.push("/home");
+    }
+  }, [router]);
 
   const handleSignUp = () => {
     router.push("/signup");
@@ -87,12 +83,13 @@ const LoginPage = () => {
                 <EmailIcon />
               </span>
               <input
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
                 type="email"
                 id="email"
                 placeholder="Email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-3 text-sm leading-[160%] outline-none text-black/50"
               />
             </div>
@@ -114,12 +111,13 @@ const LoginPage = () => {
               <PasswordIcon />
             </span>
             <input
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
               type={passwordVisible ? "text" : "password"}
               id="password"
               placeholder="Password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-10 text-sm leading-[160%] outline-none text-black/50"
             />
             <button
@@ -154,8 +152,8 @@ const LoginPage = () => {
           </button>
         </form>
         <button
-          onClick={handleSignUp}
           type="button"
+          onClick={handleSignUp}
           className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
         >
           Sign Up

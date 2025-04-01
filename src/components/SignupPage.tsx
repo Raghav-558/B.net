@@ -4,40 +4,39 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const SignInPage = () => {
-  const formValues = {
+  const formValue = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   };
 
-  const [formData, setFormData] = useState(formValues);
+  const [formDatas, setFormDatas] = useState(formValue);
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailRegex =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(true);
 
     if (
-      formData.firstName === "" ||
-      formData.lastName === "" ||
-      formData.email === "" ||
-      formData.password === ""
+      formDatas.firstName === "" ||
+      formDatas.lastName === "" ||
+      formDatas.email === "" ||
+      formDatas.password === ""
     ) {
       setError(true);
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (!emailRegex.test(formDatas.email)) {
       setError(true);
-    } else if (formData.password.length < 6) {
+    } else if (formDatas.password.length < 6) {
       setError(true);
     } else {
-      localStorage.setItem("user", JSON.stringify(formData));
+      localStorage.setItem("user", JSON.stringify(formDatas));
       localStorage.setItem("isLoggedIn", "true");
       alert("Sign In Successful!");
-      setFormData(formValues);
+      setFormDatas(formValue);
       setError(false);
       router.push("/login");
     }
@@ -75,14 +74,14 @@ const SignInPage = () => {
           <div className="relative mb-4">
             <input
               onChange={(e) =>
-                setFormData({ ...formData, firstName: e.target.value })
+                setFormDatas({ ...formDatas, firstName: e.target.value })
               }
               type="text"
               id="firstName"
               placeholder="First Name"
               className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 px-3 text-sm leading-[160%] outline-none text-black/50"
             />
-            {error && formData.firstName === "" && (
+            {error && formDatas.firstName === "" && (
               <p className="text-red-500 text-xs pt-1 pl-2">
                 First name is required
               </p>
@@ -91,14 +90,14 @@ const SignInPage = () => {
           <div className="relative mb-4">
             <input
               onChange={(e) =>
-                setFormData({ ...formData, lastName: e.target.value })
+                setFormDatas({ ...formDatas, lastName: e.target.value })
               }
               type="text"
               id="lastName"
               placeholder="Last Name"
               className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 px-3 text-sm leading-[160%] outline-none text-black/50"
             />
-            {error && formData.lastName === "" && (
+            {error && formDatas.lastName === "" && (
               <p className="text-red-500 text-xs pt-1 pl-2">
                 Last name is required
               </p>
@@ -107,20 +106,20 @@ const SignInPage = () => {
           <div className="relative mb-4">
             <input
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormDatas({ ...formDatas, email: e.target.value })
               }
               type="email"
               id="email"
               placeholder="Email"
               className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 px-3 text-sm leading-[160%] outline-none text-black/50"
             />
-            {error && formData.email.length === 0 ? (
+            {error && formDatas.email.length === 0 ? (
               <p className="text-red-500 text-xs pt-1 pl-2">
                 Email address is required
               </p>
             ) : (
               error &&
-              !emailRegex.test(formData.email) && (
+              !emailRegex.test(formDatas.email) && (
                 <p className="text-red-500 text-xs pt-1 pl-2">
                   Enter a valid email address
                 </p>
@@ -130,21 +129,21 @@ const SignInPage = () => {
           <div className="relative mb-4">
             <input
               onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
+                setFormDatas({ ...formDatas, password: e.target.value })
               }
               type="password"
               id="password"
               placeholder="Password"
               className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 px-3 text-sm leading-[160%] outline-none text-black/50"
             />
-            {error && formData.password.length === 0 ? (
+            {error && formDatas.password.length === 0 ? (
               <p className="text-red-500 text-xs pt-1 pl-2">
                 Password is required
               </p>
             ) : (
               error &&
-              formData.password.length > 0 &&
-              formData.password.length < 6 && (
+              formDatas.password.length > 0 &&
+              formDatas.password.length < 6 && (
                 <p className="text-red-500 text-xs pt-1 pl-2">
                   Password must be at least 6 characters
                 </p>

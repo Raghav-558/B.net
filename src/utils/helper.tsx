@@ -11,3 +11,5 @@ export const HEADER_ICONS_LIST = [
     icon: <BatteryIcon />,
   },
 ];
+
+export const HOME_TABS_LIST = ["Today", "Weekly", "Monthly"];
