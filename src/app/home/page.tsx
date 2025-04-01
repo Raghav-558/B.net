@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import HomePage from "@/components/HomePage";
 
@@ -14,7 +14,9 @@ const page = () => {
 
   return (
     <>
-      <HomePage />
+      <Suspense>
+        <HomePage />
+      </Suspense>
     </>
   );
 };
