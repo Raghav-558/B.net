@@ -1,17 +1,11 @@
 "use client";
-import {
-  CloseEyeIcon,
-  EmailIcon,
-  OpenEyeIcon,
-  PasswordIcon,
-} from "@/utils/icons";
+import {CloseEyeIcon,EmailIcon,OpenEyeIcon,PasswordIcon} from "@/utils/icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation"; 
 import React, { useState, useEffect } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
-
   const formValues = {
     email: "",
     password: "",
@@ -20,8 +14,7 @@ const LoginPage = () => {
   const [formData, setFormData] = useState(formValues);
   const [error, setError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,14 +82,7 @@ const LoginPage = () => {
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black/50">
                 <EmailIcon />
               </span>
-              <input
-                type="email"
-                id="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+              <input type="email" id="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-3 text-sm leading-[160%] outline-none text-black/50"
               />
             </div>
@@ -117,21 +103,9 @@ const LoginPage = () => {
             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black/50">
               <PasswordIcon />
             </span>
-            <input
-              type={passwordVisible ? "text" : "password"}
-              id="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-              className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-10 text-sm leading-[160%] outline-none text-black/50"
-            />
-            <button
-              type="button"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-black/50 cursor-pointer"
-            >
+            <input type={passwordVisible ? "text" : "password"} id="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-10 text-sm leading-[160%] outline-none text-black/50" />
+            <button type="button"  onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-black/50 cursor-pointer" >
               {passwordVisible ? <CloseEyeIcon /> : <OpenEyeIcon />}
             </button>
           </div>
@@ -153,16 +127,12 @@ const LoginPage = () => {
           </p>
           <button
             type="submit"
-            className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-black hover:text-custom-green transition-all duration-300 mt-10"
+            className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-transparent border-2 border-transparent hover:border-custom-green hover:text-custom-green transition-all duration-300 mt-10"
           >
             Log In
           </button>
         </form>
-        <button
-          type="button"
-          onClick={handleSignUp} 
-          className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
-        >
+        <button type="button" onClick={handleSignUp} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4">
           Sign Up
         </button>
       </div>

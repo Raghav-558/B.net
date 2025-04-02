@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -14,7 +14,6 @@ const SignInPage = () => {
   const [formDatas, setFormDatas] = useState(formValue);
   const [error, setError] = useState(false);
   const router = useRouter();
-
   const emailRegex =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -69,13 +68,9 @@ const SignInPage = () => {
         <p className="text-sm text-black/70 text-center pt-2">
           Please sign in to continue
         </p>
-
         <form noValidate className="w-full pt-10" onSubmit={handleSubmit}>
           <div className="relative mb-4">
-            <input
-              onChange={(e) =>
-                setFormDatas({ ...formDatas, firstName: e.target.value })
-              }
+            <input onChange={(e) => setFormDatas({ ...formDatas, firstName: e.target.value })}
               type="text"
               id="firstName"
               placeholder="First Name"
@@ -88,10 +83,7 @@ const SignInPage = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <input
-              onChange={(e) =>
-                setFormDatas({ ...formDatas, lastName: e.target.value })
-              }
+            <input onChange={(e) => setFormDatas({ ...formDatas, lastName: e.target.value })}
               type="text"
               id="lastName"
               placeholder="Last Name"
@@ -104,10 +96,7 @@ const SignInPage = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <input
-              onChange={(e) =>
-                setFormDatas({ ...formDatas, email: e.target.value })
-              }
+            <input onChange={(e) => setFormDatas({ ...formDatas, email: e.target.value })}
               type="email"
               id="email"
               placeholder="Email"
@@ -127,10 +116,7 @@ const SignInPage = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <input
-              onChange={(e) =>
-                setFormDatas({ ...formDatas, password: e.target.value })
-              }
+            <input onChange={(e) => setFormDatas({ ...formDatas, password: e.target.value }) }
               type="password"
               id="password"
               placeholder="Password"
@@ -150,19 +136,12 @@ const SignInPage = () => {
               )
             )}
           </div>
-          <button
-            type="submit"
-            className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-black hover:text-custom-green transition-all duration-300 mt-10"
+          <button type="submit" className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-black hover:text-custom-green transition-all duration-300 mt-10"
           >
             Sign In
           </button>
         </form>
-
-        <button
-          type="button"
-          onClick={handleLoginClick}
-          className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
-        >
+        <button type="button" onClick={handleLoginClick} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4" >
           Login
         </button>
       </div>
