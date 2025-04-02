@@ -143,7 +143,7 @@ export const TimerIcon = () => (
   </svg>
 );
 
-export const HomeIcon = () => (
+export const HomeIcon = ({pathClass} : {pathClass: string}) => (
   <svg
     width="24"
     height="24"
@@ -151,14 +151,14 @@ export const HomeIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
+    <path className={`transition-all duration-300 ${pathClass}`}
       d="M6 19H9.692V13.115H14.308V19H18V10L12 5.46204L6 10V19ZM5 20V9.50004L12 4.21204L19 9.50004V20H13.308V14.115H10.692V20H5Z"
       fill="white"
     />
   </svg>
 );
 
-export const ProfileIcon = () => (
+export const ProfileIcon = ({pathClass} : {pathClass: string}) => (
   <svg
     width="24"
     height="24"
@@ -166,12 +166,12 @@ export const ProfileIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
+    <path className={`transition-all duration-300 ${pathClass}`}
       d="M4 18C4 16.9391 4.42143 15.9217 5.17157 15.1716C5.92172 14.4214 6.93913 14 8 14H16C17.0609 14 18.0783 14.4214 18.8284 15.1716C19.5786 15.9217 20 16.9391 20 18C20 18.5304 19.7893 19.0391 19.4142 19.4142C19.0391 19.7893 18.5304 20 18 20H6C5.46957 20 4.96086 19.7893 4.58579 19.4142C4.21071 19.0391 4 18.5304 4 18Z"
       stroke="white"
       strokeLinejoin="round"
     />
-    <path
+    <path className={`transition-all duration-300 ${pathClass}`}
       d="M12 10C13.6569 10 15 8.65685 15 7C15 5.34315 13.6569 4 12 4C10.3431 4 9 5.34315 9 7C9 8.65685 10.3431 10 12 10Z"
       stroke="white"
     />
