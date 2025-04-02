@@ -13,7 +13,7 @@ const NavigationBar = () => {
   const path = usePathname();
   return (
     <div className="absolute bottom-0 left-0 right-0">
-      <div className="bottom-bar py-3 bg-cover mt-24 relative">
+      <div className="bottom-bar py-3 bg-cover relative">
         <div className="flex justify-between items-center px-5">
           <div className="flex items-center gap-[45px]">
             <Link href="/">
@@ -36,11 +36,13 @@ const NavigationBar = () => {
             </Link>
           </div>
         </div>
-        <div className="bg-black size-12 rounded-full flex items-center justify-center absolute -top-8 left-1/2 -translate-x-1/2">
-          <Link href={"/add-project"} className="cursor-pointer">
-            <PlusIcon />
-          </Link>
-        </div>
+
+        <Link
+          href={"/add-project"}
+          className="bg-black size-12 rounded-full flex items-center justify-center absolute -top-8 left-1/2 -translate-x-1/2"
+        >
+          <PlusIcon />
+        </Link>
       </div>
     </div>
   );
