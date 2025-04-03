@@ -26,9 +26,9 @@ body {
   box-shadow: 0px 0px 25px 0px #00000014;
 }
 
-input[type="time"]::-webkit-calendar-picker-indicator {
+/* input[type="time"]::-webkit-calendar-picker-indicator {
     background: none;
-}
+} */
 
 .profile-box{
   box-shadow: 4px 4px 25px 0px #00000014;

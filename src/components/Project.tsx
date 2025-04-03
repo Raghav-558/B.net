@@ -2,12 +2,12 @@
 import { ClockIcon, SearchIcon } from "@/utils/icons";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import "react-toastify/dist/ReactToastify.css"; 
 
 const Project = () => {
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
   const form = {
     startTime: "",
     endTime: "",
@@ -23,26 +23,19 @@ const Project = () => {
 
     if (startTime && endTime && project) {
       const savedData = localStorage.getItem("project");
-      const dataList = savedData ? JSON.parse(savedData) : []; // Initialize as array if null
-      dataList.push({ startTime, endTime, project }); // Append new data
-      localStorage.setItem("project", JSON.stringify(dataList)); // Save updated array
-
-      // Toastify success notification
+      const dataList = savedData ? JSON.parse(savedData) : [];
+      dataList.push({ startTime, endTime, project });
+      localStorage.setItem("project", JSON.stringify(dataList)); 
       toast.success("Form data saved successfully!");
-
-      // Reset form data
       setFormData({
         startTime: "",
         endTime: "",
         project: "",
       });
-
-      // Redirect to home page after a delay
       setTimeout(() => {
         router.push("/home");
-      }, 2000); // 2-second delay
+      }, 1500);
     } else {
-      // Toastify error notification
       toast.error("Please fill all fields.");
     }
   };
@@ -54,7 +47,7 @@ const Project = () => {
       project: "",
     });
 
-    // Toastify info notification
+  
     toast.info("Form reset successfully!");
   };
 
@@ -91,7 +84,7 @@ const Project = () => {
                   setFormData({ ...formData, startTime: e.target.value })
                 }
                 placeholder="10:00 PM"
-                type="number"
+                type="time"
                 style={{ appearance: "none" }}
                 className="w-[130px] !appearance-none bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
               />
@@ -115,7 +108,7 @@ const Project = () => {
                   setFormData({ ...formData, endTime: e.target.value })
                 }
                 placeholder="04:00 AM"
-                type="number"
+                type="time"
                 className="w-[130px] appearance-none bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
               />
             </div>
@@ -160,7 +153,7 @@ const Project = () => {
           </button>
         </div>
       </form>
-      <ToastContainer /> {/* Add Toastify container */}
+      <ToastContainer />
     </div>
   );
 };
