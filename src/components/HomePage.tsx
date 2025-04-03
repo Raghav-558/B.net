@@ -12,7 +12,7 @@ const HomePage = () => {
   const tab = searchParams.get("tab") || "today";
 
   const [profilePic, setProfilePic] = useState<string | null>(null);
-  const [profileName, setProfileName] = useState<string | null>("Hi there!");
+  const [profileName, setProfileName] = useState<string | null>("");
 
   useEffect(() => {
     const storedProfilePic = localStorage.getItem("profilePicture");

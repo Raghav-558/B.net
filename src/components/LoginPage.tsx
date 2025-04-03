@@ -1,8 +1,15 @@
 "use client";
-import {CloseEyeIcon,EmailIcon,OpenEyeIcon,PasswordIcon} from "@/utils/icons";
+import {
+  CloseEyeIcon,
+  EmailIcon,
+  OpenEyeIcon,
+  PasswordIcon,
+} from "@/utils/icons";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -14,27 +21,29 @@ const LoginPage = () => {
   const [formData, setFormData] = useState(formValues);
   const [error, setError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  setError(false);
+
+  if (formData.email === "" || formData.password === "") {
     setError(true);
-
-    if (formData.email === "" || formData.password === "") {
-      setError(true);
-    } else if (!emailRegex.test(formData.email)) {
-      setError(true);
-    } else if (formData.password.length < 6) {
-      setError(true);
-    } else {
-      localStorage.setItem("formData", JSON.stringify(formData));
-      localStorage.setItem("isLogin", "true");
-      setFormData(formValues);
-      setError(false);
-      alert("Login Successful!");
+  } else if (!emailRegex.test(formData.email)) {
+    setError(true);
+  } else if (formData.password.length < 6) {
+    setError(true);
+  } else {
+    localStorage.setItem("formData", JSON.stringify(formData));
+    localStorage.setItem("isLogin", "true");
+    setFormData(formValues);
+    toast.success("Login Successful!"); 
+    setTimeout(() => {
       router.push("/home");
-    }
-  };
+    }, 1500); 
+  }
+};
 
   useEffect(() => {
     if (localStorage.getItem("isLogin") === "true") {
@@ -43,11 +52,13 @@ const LoginPage = () => {
   }, [router]);
 
   const handleSignUp = () => {
+    toast.info("Redirecting to Sign Up page...");
     router.push("/signup");
   };
 
   return (
     <div className="relative w-[360px] mx-auto">
+      {/* Vector images */}
       <Image
         src="/assets/images/webp/vector-top-img.webp"
         alt="top-vector"
@@ -82,11 +93,22 @@ const LoginPage = () => {
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black/50">
                 <EmailIcon />
               </span>
-              <input type="email" id="email" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-3 text-sm leading-[160%] outline-none text-black/50"
               />
             </div>
-            {error && formData.email.length === 0 ? ( <p className="text-red-500 text-xs pt-1 pl-2"> Email address is required </p> ) : (
+            {error && formData.email.length === 0 ? (
+              <p className="text-red-500 text-xs pt-1 pl-2">
+                Email address is required
+              </p>
+            ) : (
               error &&
               !emailRegex.test(formData.email) && (
                 <p className="text-red-500 text-xs pt-1 pl-2">
@@ -99,9 +121,21 @@ const LoginPage = () => {
             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black/50">
               <PasswordIcon />
             </span>
-            <input type={passwordVisible ? "text" : "password"} id="password" placeholder="Password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-10 text-sm leading-[160%] outline-none text-black/50" />
-            <button type="button"  onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-black/50 cursor-pointer" >
+            <input
+              type={passwordVisible ? "text" : "password"}
+              id="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-10 text-sm leading-[160%] outline-none text-black/50"
+            />
+            <button
+              type="button"
+              onClick={() => setPasswordVisible(!passwordVisible)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-black/50 cursor-pointer"
+            >
               {passwordVisible ? <CloseEyeIcon /> : <OpenEyeIcon />}
             </button>
           </div>
@@ -128,10 +162,15 @@ const LoginPage = () => {
             Log In
           </button>
         </form>
-        <button type="button" onClick={handleSignUp} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4">
+        <button
+          type="button"
+          onClick={handleSignUp}
+          className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
+        >
           Sign Up
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };

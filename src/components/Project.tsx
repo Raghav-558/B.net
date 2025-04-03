@@ -1,8 +1,13 @@
+"use client";
 import { ClockIcon, SearchIcon } from "@/utils/icons";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 
 const Project = () => {
+  const router = useRouter(); // Initialize router
   const form = {
     startTime: "",
     endTime: "",
@@ -18,17 +23,27 @@ const Project = () => {
 
     if (startTime && endTime && project) {
       const savedData = localStorage.getItem("project");
-      const dataList = savedData ? JSON.parse(savedData) : [];             // Initialize as array if null
-      dataList.push({ startTime, endTime, project });                      // Append new data
-      localStorage.setItem("project", JSON.stringify(dataList));           // Save updated array
-      alert("Form data saved successfully!");
+      const dataList = savedData ? JSON.parse(savedData) : []; // Initialize as array if null
+      dataList.push({ startTime, endTime, project }); // Append new data
+      localStorage.setItem("project", JSON.stringify(dataList)); // Save updated array
+
+      // Toastify success notification
+      toast.success("Form data saved successfully!");
+
+      // Reset form data
       setFormData({
         startTime: "",
         endTime: "",
         project: "",
       });
+
+      // Redirect to home page after a delay
+      setTimeout(() => {
+        router.push("/home");
+      }, 2000); // 2-second delay
     } else {
-      alert("Please fill all fields.");
+      // Toastify error notification
+      toast.error("Please fill all fields.");
     }
   };
 
@@ -38,7 +53,9 @@ const Project = () => {
       endTime: "",
       project: "",
     });
-    alert("Form reset successfully!");
+
+    // Toastify info notification
+    toast.info("Form reset successfully!");
   };
 
   return (
@@ -53,7 +70,7 @@ const Project = () => {
       <form
         noValidate
         onSubmit={handlerSubmit}
-        className="flex flex-col pt-12 px-5"
+        className="flex flex-col pt-3 px-5"
       >
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
@@ -74,7 +91,7 @@ const Project = () => {
                   setFormData({ ...formData, startTime: e.target.value })
                 }
                 placeholder="10:00 PM"
-                type="time"
+                type="number"
                 style={{ appearance: "none" }}
                 className="w-[130px] !appearance-none bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
               />
@@ -98,7 +115,7 @@ const Project = () => {
                   setFormData({ ...formData, endTime: e.target.value })
                 }
                 placeholder="04:00 AM"
-                type="time"
+                type="number"
                 className="w-[130px] appearance-none bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
               />
             </div>
@@ -143,6 +160,7 @@ const Project = () => {
           </button>
         </div>
       </form>
+      <ToastContainer /> {/* Add Toastify container */}
     </div>
   );
 };

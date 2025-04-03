@@ -1,9 +1,12 @@
 "use client";
-import { BackArrowIcon, EditIcon, MobileIcon, ProfileMailIcon, UploadImage } from "@/utils/icons";
+import {BackArrowIcon, EditIcon, MobileIcon, ProfileMailIcon,UploadImage,} from "@/utils/icons";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("+49 000 00000");
   const [name, setName] = useState("Moin Thomas");
@@ -27,9 +30,9 @@ const Profile = () => {
       const userData = JSON.parse(storedData);
       setEmail(userData.email || "");
       setMobile(userData.mobile || "+49 000 00000");
-      setName(userData.name || "Moin Thomas");                       
+      setName(userData.name || "Moin Thomas");
     } else {
-      setName("Moin Thomas");                                        
+      setName("Moin Thomas");
     }
 
     if (storedPicture) {
@@ -99,7 +102,6 @@ const Profile = () => {
       setProfilePicture(newProfilePicture);
       setNewProfilePicture("");
     }
-
     localStorage.setItem("formData", JSON.stringify(updatedData));
     setIsModalOpen(false);
   };
@@ -114,7 +116,9 @@ const Profile = () => {
     <div className="w-[360px] mx-auto">
       <div className="profile-box rounded-b-[40px]">
         <div className="flex items-center justify-between pt-3 px-5">
-          <BackArrowIcon />
+          <button onClick={() => router.push("/home")}>
+            <BackArrowIcon />
+          </button>
           <h3 className="text-base font-medium leading-[150%]">Profile</h3>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -129,7 +133,7 @@ const Profile = () => {
             height={87}
             alt="profile-image"
             src={profilePicture}
-            className="rounded-full w-[87px] h-[87px] flex justify-center"
+            className="rounded-full w-[87px] h-[87px] flex justify-center pointer-events-none"
           />
           <h2 className="font-medium text-xl leading-[120%] pt-4 text-center">
             {name}
@@ -202,7 +206,7 @@ const Profile = () => {
                     height={87}
                     alt="Updated Profile"
                     src={newProfilePicture}
-                    className="mt-2 rounded-full w-[87px] h-[87px]"
+                    className="mt-2 rounded-full w-[87px] h-[87px] pointer-events-none"
                   />
                 )}
               </div>

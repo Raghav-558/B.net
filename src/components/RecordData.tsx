@@ -28,7 +28,7 @@ const RecordData = () => {
       {dataList.length > 0 ? (
         <div>
           <div className="max-h-[280px] overflow-y-auto">
-            <table className="">
+            <table>
               <thead>
                 <tr>
                   <th className="pl-1.5 text-left font-medium text-[10px] leading-[175%]">
@@ -56,7 +56,7 @@ const RecordData = () => {
                       {data.endTime}
                       <span className="pl-5 translate-x-7 border-r border-solid border-black/33"></span>
                     </td>
-                    <td className="pl-6 pt-[11px] pb-1 text-black/70 text-xs leading-[170%]">
+                    <td className="pl-6 pt-[11px] pb-1 text-black/70 text-xs leading-[170%] whitespace-nowrap">
                       {data.project}
                     </td>
                     <td className="w-full"></td>

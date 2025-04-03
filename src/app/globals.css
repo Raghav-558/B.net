@@ -33,3 +33,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .profile-box{
   box-shadow: 4px 4px 25px 0px #00000014;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

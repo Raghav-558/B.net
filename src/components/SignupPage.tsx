@@ -15,11 +15,9 @@ const SignInPage = () => {
   const [error, setError] = useState(false);
   const router = useRouter();
   const emailRegex =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(true);
-
     if (
       formDatas.firstName === "" ||
       formDatas.lastName === "" ||
@@ -141,7 +139,7 @@ const SignInPage = () => {
             Sign In
           </button>
         </form>
-        <button type="button" onClick={handleLoginClick} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4" >
+        <button type="button" onClick={handleLoginClick} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4">
           Login
         </button>
       </div>
