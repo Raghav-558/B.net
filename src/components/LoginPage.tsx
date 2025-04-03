@@ -86,11 +86,7 @@ const LoginPage = () => {
                 className="w-full border-[0.5px] border-solid border-black/12 rounded py-3 pl-10 pr-3 text-sm leading-[160%] outline-none text-black/50"
               />
             </div>
-            {error && formData.email.length === 0 ? (
-              <p className="text-red-500 text-xs pt-1 pl-2">
-                Email address is required
-              </p>
-            ) : (
+            {error && formData.email.length === 0 ? ( <p className="text-red-500 text-xs pt-1 pl-2"> Email address is required </p> ) : (
               error &&
               !emailRegex.test(formData.email) && (
                 <p className="text-red-500 text-xs pt-1 pl-2">

@@ -45,6 +45,13 @@ const Profile = () => {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
+      const fileExtension = file.type.split("/")[1]; 
+
+      if (fileExtension !== "png" && fileExtension !== "jpeg" && fileExtension !== "jpg") {
+        alert("Only .png and .jpg files are allowed!");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         const imageDataUrl = reader.result as string;
