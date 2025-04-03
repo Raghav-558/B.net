@@ -44,10 +44,7 @@ const RecordData = () => {
               </thead>
               <tbody>
                 {dataList.map((data, index) => (
-                  <tr
-                    key={index}
-                    className="border-b-[0.5px] border-solid border-black/12 !min-w-[360px]"
-                  >
+                  <tr key={index} className="border-b-[0.5px] border-solid border-black/12 !min-w-[360px]">
                     <td className="pt-[11px] pb-1 text-black/70 text-xs leading-[170%] flex items-center gap-1 pl-1.5">
                       <TableClockIcon />
                       {data.startTime}

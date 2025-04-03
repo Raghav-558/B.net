@@ -1,22 +1,20 @@
 "use client";
-import {
-  BackArrowIcon,
-  EditIcon,
-  MobileIcon,
-  ProfileMailIcon,
-  UploadImage,
-} from "@/utils/icons";
+import { BackArrowIcon, EditIcon, MobileIcon, ProfileMailIcon, UploadImage } from "@/utils/icons";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
 const Profile = () => {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("+49 000 00000");
-  const [profilePicture, setProfilePicture] = useState("/assets/images/webp/profile-image.webp");
+  const [name, setName] = useState("Moin Thomas");
+  const [profilePicture, setProfilePicture] = useState(
+    "/assets/images/webp/profile-image.webp"
+  );
   const [newProfilePicture, setNewProfilePicture] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEmail, setNewEmail] = useState("");
-  const [newMobile, setNewMobile] = useState(""); 
+  const [newMobile, setNewMobile] = useState("");
+  const [newName, setNewName] = useState("");
   const [emailError, setEmailError] = useState("");
   const [mobileError, setMobileError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -27,16 +25,20 @@ const Profile = () => {
 
     if (storedData) {
       const userData = JSON.parse(storedData);
-      setEmail(userData.email);
-      setMobile(userData.mobile);
+      setEmail(userData.email || "");
+      setMobile(userData.mobile || "+49 000 00000");
+      setName(userData.name || "Moin Thomas");                       
+    } else {
+      setName("Moin Thomas");                                        
     }
+
     if (storedPicture) {
       setProfilePicture(storedPicture);
     }
   }, []);
 
   const isValidMobile = (mobile: string) => {
-    const mobileRegex = /^[+]?[0-9]{10,15}$/; 
+    const mobileRegex = /^[+]?[0-9]{10,15}$/;
     return mobileRegex.test(mobile);
   };
 
@@ -45,10 +47,9 @@ const Profile = () => {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      const fileExtension = file.type.split("/")[1]; 
-
+      const fileExtension = file.type.split("/")[1];
       if (fileExtension !== "png" && fileExtension !== "jpeg" && fileExtension !== "jpg") {
-        alert("Only .png and .jpg files are allowed!");
+        alert("Only png and jpg files are allowed!");
         return;
       }
 
@@ -62,38 +63,35 @@ const Profile = () => {
   };
 
   const handleConfirm = () => {
+    const storedData = localStorage.getItem("formData") || "{}";
+    const updatedData = JSON.parse(storedData);
+
     if (newEmail.trim() !== "") {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
-        setEmailError("Please enter a valid email address.");
+        setEmailError("Enter a valid email address.");
         return;
-      } else {
-        setEmailError("");
-        const storedData = localStorage.getItem("formData");
-        const updatedData = storedData
-          ? { ...JSON.parse(storedData), email: newEmail }
-          : { email: newEmail };
-
-        localStorage.setItem("formData", JSON.stringify(updatedData));
-        setEmail(newEmail);
-        setNewEmail("");
       }
+      setEmailError("");
+      updatedData.email = newEmail;
+      setEmail(newEmail);
+      setNewEmail("");
     }
 
     if (newMobile.trim() !== "") {
       if (!isValidMobile(newMobile)) {
-        setMobileError("Please enter a valid mobile number.");
+        setMobileError("Enter a valid mobile number.");
         return;
-      } else {
-        setMobileError("");
-        const storedData = localStorage.getItem("formData");
-        const updatedData = storedData
-          ? { ...JSON.parse(storedData), mobile: newMobile }
-          : { mobile: newMobile };
-
-        localStorage.setItem("formData", JSON.stringify(updatedData));
-        setMobile(newMobile);
-        setNewMobile("");
       }
+      setMobileError("");
+      updatedData.mobile = newMobile;
+      setMobile(newMobile);
+      setNewMobile("");
+    }
+
+    if (newName.trim() !== "") {
+      updatedData.name = newName;
+      setName(newName);
+      setNewName("");
     }
 
     if (newProfilePicture) {
@@ -102,6 +100,7 @@ const Profile = () => {
       setNewProfilePicture("");
     }
 
+    localStorage.setItem("formData", JSON.stringify(updatedData));
     setIsModalOpen(false);
   };
 
@@ -133,7 +132,7 @@ const Profile = () => {
             className="rounded-full w-[87px] h-[87px] flex justify-center"
           />
           <h2 className="font-medium text-xl leading-[120%] pt-4 text-center">
-            Moin Thomas
+            {name}
           </h2>
           <p className="text-sm leading-[160%] text-black/80 pt-2 text-center pb-[46px]">
             Senior Project Manager
@@ -149,7 +148,7 @@ const Profile = () => {
             Email
           </p>
           <p className="font-medium text-xs leading-[170%] text-black/70">
-            {email ? email : "No email found"}
+            {email || "No email found"}
           </p>
         </div>
       </div>
@@ -162,7 +161,7 @@ const Profile = () => {
             Mobile
           </p>
           <p className="font-medium text-xs leading-[170%] text-black/70">
-            {mobile ? mobile : "No found"}
+            {mobile || "No mobile found"}
           </p>
         </div>
       </div>
@@ -170,12 +169,22 @@ const Profile = () => {
         <div className="fixed top-0 left-0 w-full h-full px-4 bg-black/50 flex items-center justify-center">
           <div className="bg-white p-5 rounded-lg w-96">
             <h2 className="text-lg font-semibold text-center">Edit Profile</h2>
+            <div className="mt-4 flex flex-col">
+              <label className="block pb-2">Update Name:</label>
+              <input
+                type="text"
+                className="border-[0.5px] border-black/12 rounded p-2 w-full text-sm outline-none"
+                placeholder="Enter new name"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+            </div>
             <div className="mt-4 flex justify-between items-center">
               <label className="block">Update Image:</label>
               <div className="flex items-center gap-2">
                 <button
                   onClick={triggerFileUpload}
-                  className="bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition-all duration-300"
+                  className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all duration-300"
                   aria-label="Upload Image"
                 >
                   <UploadImage />

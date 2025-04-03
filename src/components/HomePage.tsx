@@ -12,12 +12,19 @@ const HomePage = () => {
   const tab = searchParams.get("tab") || "today";
 
   const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [profileName, setProfileName] = useState<string | null>("Hi there!");
 
   useEffect(() => {
-    // Local Storage se profile image retrieve karna
     const storedProfilePic = localStorage.getItem("profilePicture");
+    const storedProfileName = localStorage.getItem("formData");
+
     if (storedProfilePic) {
       setProfilePic(storedProfilePic);
+    }
+
+    if (storedProfileName) {
+      const parsedName = JSON.parse(storedProfileName).name;
+      setProfileName(parsedName || "Moin Thomas");
     }
   }, []);
 
@@ -34,7 +41,7 @@ const HomePage = () => {
         <div className="pt-3 pb-6 flex items-center justify-between">
           <div className="flex flex-col">
             <h3 className="font-medium text-xl leading-[120%]">
-              Hi, Moin Thomas!
+              Hi, {profileName}!
             </h3>
             <p className="leading-[160%] text-sm text-black/60">Good morning</p>
           </div>
@@ -81,7 +88,6 @@ const HomePage = () => {
             );
           })}
         </div>
-
         {tab === "today" ? (
           <RecordData />
         ) : (

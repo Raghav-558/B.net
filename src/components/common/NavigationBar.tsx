@@ -1,10 +1,4 @@
-import {
-  HomeIcon,
-  NotificationIcon,
-  PlusIcon,
-  ProfileIcon,
-  TimerIcon,
-} from "@/utils/icons";
+import { HomeIcon,NotificationIcon, PlusIcon, ProfileIcon, TimerIcon,} from "@/utils/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";

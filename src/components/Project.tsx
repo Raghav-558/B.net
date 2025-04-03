@@ -18,9 +18,9 @@ const Project = () => {
 
     if (startTime && endTime && project) {
       const savedData = localStorage.getItem("project");
-      const dataList = savedData ? JSON.parse(savedData) : []; // Initialize as array if null
-      dataList.push({ startTime, endTime, project }); // Append new data
-      localStorage.setItem("project", JSON.stringify(dataList)); // Save updated array
+      const dataList = savedData ? JSON.parse(savedData) : [];             // Initialize as array if null
+      dataList.push({ startTime, endTime, project });                      // Append new data
+      localStorage.setItem("project", JSON.stringify(dataList));           // Save updated array
       alert("Form data saved successfully!");
       setFormData({
         startTime: "",
