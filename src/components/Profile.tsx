@@ -12,13 +12,10 @@ import { useRouter } from "next/navigation";
 
 const Profile = () => {
   const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("+49 000 00000");
   const [name, setName] = useState("Moin Thomas");
-  const [profilePicture, setProfilePicture] = useState(
-    "/assets/images/webp/profile-image.webp"
-  );
+  const [profilePicture, setProfilePicture] = useState("/assets/images/webp/profile-image.webp");
   const [newProfilePicture, setNewProfilePicture] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEmail, setNewEmail] = useState("");
@@ -105,10 +102,6 @@ const Profile = () => {
     const updatedData = JSON.parse(storedData);
 
     if (newEmail.trim() !== "") {
-      if (!isValidEmail(newEmail)) {
-        setEmailError("Enter a valid email address.");
-        return;
-      }
       setEmailError("");
       updatedData.email = newEmail;
       setEmail(newEmail);
@@ -116,10 +109,6 @@ const Profile = () => {
     }
 
     if (newMobile.trim() !== "") {
-      if (!isValidMobile(newMobile)) {
-        setMobileError("Enter a valid mobile number.");
-        return;
-      }
       setMobileError("");
       updatedData.mobile = newMobile;
       setMobile(newMobile);
