@@ -73,10 +73,7 @@ const Project = () => {
             >
               Start Time
             </label>
-            <div className="relative mt-1">
-              <span className="absolute left-[90px] top-1/2 transform -translate-y-1/2 text-black/50">
-                <ClockIcon />
-              </span>
+            <div className="mt-1">
               <input
                 required
                 value={formData.startTime}
@@ -97,10 +94,7 @@ const Project = () => {
             >
               End Time
             </label>
-            <div className="relative mt-1">
-              <span className="absolute left-[90px] top-1/2 transform -translate-y-1/2 text-black/50">
-                <ClockIcon />
-              </span>
+            <div className="mt-1">
               <input
                 required
                 value={formData.endTime}

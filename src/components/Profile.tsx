@@ -116,7 +116,7 @@ const Profile = () => {
     <div className="w-[360px] mx-auto">
       <div className="profile-box rounded-b-[40px]">
         <div className="flex items-center justify-between pt-3 px-5">
-          <button onClick={() => router.push("/home")}>
+          <button className="cursor-pointer" onClick={() => router.push("/home")}>
             <BackArrowIcon />
           </button>
           <h3 className="text-base font-medium leading-[150%]">Profile</h3>
