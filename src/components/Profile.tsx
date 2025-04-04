@@ -1,5 +1,11 @@
 "use client";
-import {BackArrowIcon, EditIcon, MobileIcon, ProfileMailIcon,UploadImage,} from "@/utils/icons";
+import {
+  BackArrowIcon,
+  EditIcon,
+  MobileIcon,
+  ProfileMailIcon,
+  UploadImage,
+} from "@/utils/icons";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -40,9 +46,34 @@ const Profile = () => {
     }
   }, []);
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const isValidMobile = (mobile: string) => {
     const mobileRegex = /^[+]?[0-9]{10,15}$/;
     return mobileRegex.test(mobile);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setNewEmail(value);
+    if (!isValidEmail(value)) {
+      setEmailError("Enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setNewMobile(value);
+    if (!isValidMobile(value)) {
+      setMobileError("Enter a valid mobile number.");
+    } else {
+      setMobileError("");
+    }
   };
 
   const handleProfilePictureChange = (
@@ -51,7 +82,11 @@ const Profile = () => {
     const file = event.target.files?.[0];
     if (file) {
       const fileExtension = file.type.split("/")[1];
-      if (fileExtension !== "png" && fileExtension !== "jpeg" && fileExtension !== "jpg") {
+      if (
+        fileExtension !== "png" &&
+        fileExtension !== "jpeg" &&
+        fileExtension !== "jpg"
+      ) {
         alert("Only png and jpg files are allowed!");
         return;
       }
@@ -70,7 +105,7 @@ const Profile = () => {
     const updatedData = JSON.parse(storedData);
 
     if (newEmail.trim() !== "") {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
+      if (!isValidEmail(newEmail)) {
         setEmailError("Enter a valid email address.");
         return;
       }
@@ -116,7 +151,10 @@ const Profile = () => {
     <div className="w-[360px] mx-auto">
       <div className="profile-box rounded-b-[40px]">
         <div className="flex items-center justify-between pt-3 px-5">
-          <button className="cursor-pointer" onClick={() => router.push("/home")}>
+          <button
+            className="cursor-pointer"
+            onClick={() => router.push("/home")}
+          >
             <BackArrowIcon />
           </button>
           <h3 className="text-base font-medium leading-[150%]">Profile</h3>
@@ -170,8 +208,14 @@ const Profile = () => {
         </div>
       </div>
       {isModalOpen && (
-        <div className="fixed top-0 left-0 w-full h-full px-4 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-5 rounded-lg w-96">
+        <div
+          className="fixed top-0 left-0 w-full h-full px-4 bg-black/50 flex items-center justify-center"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="bg-white p-5 rounded-lg w-96 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h2 className="text-lg font-semibold text-center">Edit Profile</h2>
             <div className="mt-4 flex flex-col">
               <label className="block pb-2">Update Name:</label>
@@ -215,10 +259,12 @@ const Profile = () => {
               <label className="block pb-2">Update Email:</label>
               <input
                 type="email"
-                className="border-[0.5px] border-black/12 rounded p-2 w-full text-sm outline-none"
+                className={`border-[0.5px] rounded p-2 w-full text-sm outline-none ${
+                  emailError ? "border-red-500" : "border-black/12"
+                }`}
                 placeholder="Enter new email"
                 value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)}
+                onChange={handleEmailChange}
               />
               {emailError && (
                 <p className="text-red-500 text-xs mt-1">{emailError}</p>
@@ -227,11 +273,13 @@ const Profile = () => {
             <div className="mt-4">
               <label className="block pb-2">Update Mobile:</label>
               <input
-                type="text"
-                className="border-[0.5px] border-black/12 rounded p-2 w-full text-sm outline-none"
+                type="number"
+                className={`border-[0.5px] rounded p-2 w-full text-sm outline-none ${
+                  mobileError ? "border-red-500" : "border-black/12"
+                }`}
                 placeholder="Enter new mobile"
                 value={newMobile}
-                onChange={(e) => setNewMobile(e.target.value)}
+                onChange={handleMobileChange}
               />
               {mobileError && (
                 <p className="text-red-500 text-xs mt-1">{mobileError}</p>

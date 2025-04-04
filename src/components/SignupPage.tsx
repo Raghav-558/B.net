@@ -134,12 +134,12 @@ const SignInPage = () => {
               )
             )}
           </div>
-          <button type="submit" className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-black hover:text-custom-green transition-all duration-300 mt-10"
+          <button type="submit" className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-black hover:text-custom-white transition-all duration-300 mt-10"
           >
             Sign In
           </button>
         </form>
-        <button type="button" onClick={handleLoginClick} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4">
+        <button type="button" onClick={handleLoginClick} className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-black hover:border-black hover:text-custom-white transition-all duration-300 mt-4">
           Login
         </button>
       </div>

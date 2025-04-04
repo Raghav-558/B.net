@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
 
 const Project = () => {
   const router = useRouter();
@@ -21,23 +21,39 @@ const Project = () => {
 
     const { startTime, endTime, project } = formData;
 
-    if (startTime && endTime && project) {
-      const savedData = localStorage.getItem("project");
-      const dataList = savedData ? JSON.parse(savedData) : [];
-      dataList.push({ startTime, endTime, project });
-      localStorage.setItem("project", JSON.stringify(dataList)); 
-      toast.success("Form data saved successfully!");
-      setFormData({
-        startTime: "",
-        endTime: "",
-        project: "",
-      });
-      setTimeout(() => {
-        router.push("/home");
-      }, 1500);
-    } else {
+    if (!startTime || !endTime || !project) {
       toast.error("Please fill all fields.");
+      return;
     }
+
+    const toMinutes = (time: string) => {
+      const [hours, minutes] = time.split(":").map(Number);
+      return hours * 60 + minutes; 
+    };
+
+    const startMinutes = toMinutes(startTime);
+    const endMinutes = toMinutes(endTime);
+
+    if (endMinutes <= startMinutes) {
+      toast.error("End time must be later than start time.");
+      return;
+    }
+
+    const savedData = localStorage.getItem("project");
+    const dataList = savedData ? JSON.parse(savedData) : [];
+    dataList.push({ startTime, endTime, project });
+    localStorage.setItem("project", JSON.stringify(dataList));
+
+    toast.success("Form data saved successfully!");
+    setFormData({
+      startTime: "",
+      endTime: "",
+      project: "",
+    });
+
+    setTimeout(() => {
+      router.push("/home");
+    }, 1500);
   };
 
   const handleCancel = () => {
@@ -46,8 +62,6 @@ const Project = () => {
       endTime: "",
       project: "",
     });
-
-  
     toast.info("Form reset successfully!");
   };
 
@@ -83,7 +97,7 @@ const Project = () => {
                 placeholder="10:00 PM"
                 type="time"
                 style={{ appearance: "none" }}
-                className="w-[130px] !appearance-none bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
+                className="w-[130px] bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
               />
             </div>
           </div>
@@ -103,7 +117,7 @@ const Project = () => {
                 }
                 placeholder="04:00 AM"
                 type="time"
-                className="w-[130px] appearance-none bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
+                className="w-[130px] bg-white rounded-[10px] border-[0.5px] border-solid border-black/12 h-11 pr-[25px] pl-[18px] text-[10px] leading-[175%] font-medium outline-none text-black/50 input-shadow"
               />
             </div>
           </div>
@@ -134,14 +148,14 @@ const Project = () => {
         <div className="flex flex-col gap-4 mt-[25px]">
           <button
             type="submit"
-            className="w-full h-12 bg-custom-green text-custom-white font-medium leading-[160%] text-sm border border-transparent rounded-sm hover:border-custom-green hover:bg-custom-white hover:text-custom-green transition-all duration-300 cursor-pointer"
+            className="w-full h-12 bg-custom-green text-custom-white font-medium leading-[160%] text-sm border border-transparent rounded-sm hover:border-black hover:bg-black hover:text-custom-white transition-all duration-300 cursor-pointer"
           >
             Save
           </button>
           <button
             type="button"
             onClick={handleCancel}
-            className="w-full h-12 border border-solid border-custom-green text-custom-green font-medium leading-[160%] text-sm rounded-sm hover:bg-custom-green hover:text-custom-white transition-all duration-300 cursor-pointer"
+            className="w-full h-12 border border-solid border-custom-green text-custom-green font-medium leading-[160%] text-sm rounded-sm hover:bg-black hover:text-custom-white hover:border-black transition-all duration-300 cursor-pointer"
           >
             Cancel
           </button>

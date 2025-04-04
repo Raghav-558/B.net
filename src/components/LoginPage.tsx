@@ -157,7 +157,7 @@ const handleSubmit = (e: React.FormEvent) => {
           </p>
           <button
             type="submit"
-            className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded hover:bg-transparent border-2 border-transparent hover:border-custom-green hover:text-custom-green transition-all duration-300 mt-10"
+            className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-white bg-custom-green rounded border-2 border-transparent hover:border-black hover:bg-black transition-all duration-300 mt-10"
           >
             Log In
           </button>
@@ -165,7 +165,7 @@ const handleSubmit = (e: React.FormEvent) => {
         <button
           type="button"
           onClick={handleSignUp}
-          className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-custom-green hover:text-custom-white transition-all duration-300 mt-4"
+          className="w-full cursor-pointer h-[48px] font-medium text-sm leading-[160%] text-custom-green bg-transparent border-2 border-custom-green rounded hover:bg-black hover:border-black hover:text-custom-white transition-all duration-300 mt-4"
         >
           Sign Up
         </button>
